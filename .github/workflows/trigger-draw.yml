@@ -48,7 +48,7 @@ jobs:
         working-directory: ./public
         run: |
           git config --global user.name $BOT_NAME
-          git config --global user.email $BOT_REPO
+          git config --global user.email $BOT_EMAIL
           git add .
           git commit -m "added list" 
           git push
