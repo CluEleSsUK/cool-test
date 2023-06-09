@@ -46,10 +46,17 @@ jobs:
         run: ./private/scripts/hash-only.sh ./private/lists ./public
       - name: Commit to public repo
         working-directory: ./public
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name $BOT_NAME
           git config --global user.email $BOT_EMAIL
           git add .
           git commit -m "added list" 
-          git push
+      - name: Push public repo
+        uses: ad-m/github-push-action@master
+        with:
+          directory: ./public
+          github_token: ${{ secrets.PAT_TOKEN }}
+          repository: ${{ env.PUBLIC_REPO }}
 
