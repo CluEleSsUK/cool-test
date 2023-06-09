@@ -22,14 +22,15 @@ jobs:
         run: ./scripts/hash-tuple.sh ./lists
       - name: Commit to private repo
         run: |
-          git add .
           git config --global user.name $BOT_NAME
           git config --global user.email $BOT_EMAIL
+          git add .
           git commit -m "updated hashes" 
           git push
 
   hash_names_and_commit_to_public:
     runs-on: ubuntu-latest
+    needs: hash_names_and_commit_to_private
     steps:
       - name: Checkout private repo
         uses: actions/checkout@v3
@@ -46,9 +47,9 @@ jobs:
       - name: Commit to public repo
         working-directory: ./public
         run: |
-          git add .
           git config --global user.name $BOT_NAME
           git config --global user.email $BOT_REPO
+          git add .
           git commit -m "added list" 
           git push
 
