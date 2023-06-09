@@ -13,6 +13,7 @@ jobs:
         run: ./scripts/hasher.sh ./lists
       - name: commit them
         run: |
+          git add .
           git config --global user.name "hashbot"
-          git commit -am "updated hashes" 
+          git commit -m "updated hashes" 
           git push
