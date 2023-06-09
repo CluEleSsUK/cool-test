@@ -37,6 +37,7 @@ jobs:
         with:
           repository: ${{ env.PRIVATE_REPO }}
           path: ./private
+          token: ${{ secrets.PAT_TOKEN }}
       - name: Checkout public repo
         uses: actions/checkout@v3
         with: 
