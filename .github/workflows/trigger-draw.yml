@@ -1,0 +1,18 @@
+name: trigger-draw
+on:
+  pull_request:
+  push:
+    branches: [ master ]
+
+jobs:
+  hash_names:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - name: create hashes
+        run: ./scripts/hasher.sh ./lists
+      - name: commit them
+        run: |
+          git config --global user.name "hashbot"
+          git commit -am "updated hashes" 
+          git push
