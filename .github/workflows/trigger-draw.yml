@@ -1,7 +1,7 @@
 name: trigger-draw
 on:
-  pull_request:
   push:
+  pull_request:
     branches: [ master ]
 permissions:
   contents: write
@@ -10,12 +10,27 @@ jobs:
   hash_names:
     runs-on: ubuntu-latest
     steps: 
-      - uses: actions/checkout@v3
-      - name: create hashes
+      - name: Checkout private repo
+        uses: actions/checkout@v3
+      - name: Create name-hash combos
         run: ./scripts/hasher.sh ./lists
-      - name: commit them
+      - name: Commit to private repo
         run: |
           git add .
           git config --global user.name "hashbot"
           git commit -m "updated hashes" 
           git push
+      - uses: actions/checkout@v3
+        name: Checkout public repo
+        with: 
+          repository: "https://github.com/cluelessuk/cool-test-public"
+          path: ./public
+      - name: Create hashes for public repo
+        run: ./scripts/hash-only.sh ./lists ./public
+      - name: Commit to public repo
+        run: |
+          git add .
+          git config --global user.name "hashbot"
+          git commit -m "updated hashes" 
+          git push
+

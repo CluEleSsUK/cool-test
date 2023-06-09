@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# users are expected to provide a single argument: the dir they want to hash
 if [[ "$#" -ne 1 ]]; then
   echo "usage: hasher.sh /path/to/files/dir"
   exit 64
