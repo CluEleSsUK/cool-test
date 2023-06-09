@@ -19,7 +19,7 @@ jobs:
       - name: Checkout private repo
         uses: actions/checkout@v3
       - name: Create name-hash combos
-        run: ./scripts/hasher.sh ./lists
+        run: ./scripts/hash-tuple.sh ./lists
       - name: Commit to private repo
         run: |
           git add .
@@ -44,8 +44,8 @@ jobs:
       - name: Create hashes for public repo
         run: ./private/scripts/hash-only.sh ./private/lists ./public
       - name: Commit to public repo
+        working-directory: ./public
         run: |
-          cd ./public
           git add .
           git config --global user.name $BOT_NAME
           git config --global user.email $BOT_REPO
