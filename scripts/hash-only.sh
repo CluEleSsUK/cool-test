@@ -13,10 +13,12 @@ files=$(ls $lists_dir | grep -v "hashes-")
 
 for filename in $files; do
   contents=$(cat $lists_dir/$filename)
+  # make sure we delete any existing versions of it
+  rm -rf $hashes_dir/filename
 
   # for every line in each file
   for current_line in $contents; do
     # we hash it, strip the trailing - char and output the hash to a new file in the output dir
-    echo $current_line | sha256sum  | sed 's/\(.*\)-/\1/' > $hashes_dir/$filename
+    echo $current_line | sha256sum  | sed 's/\(.*\)-/\1/' >> $hashes_dir/$filename
   done
 done
