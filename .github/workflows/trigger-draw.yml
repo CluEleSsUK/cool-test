@@ -22,6 +22,7 @@ jobs:
         run: ./scripts/hash-tuple.sh ./lists
       - name: Commit to private repo
         run: |
+          git diff-index --name-only HEAD --
           git config --global user.name $BOT_NAME
           git config --global user.email $BOT_EMAIL
           git add .
@@ -43,6 +44,7 @@ jobs:
         with: 
           repository: ${{ env.PUBLIC_REPO }}
           path: ./public
+          token: ${{ secrets.PAT_TOKEN }}
       - name: Create hashes for public repo
         run: ./private/scripts/hash-only.sh ./private/lists ./public
       - name: Commit to public repo
