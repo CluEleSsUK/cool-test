@@ -20,6 +20,6 @@ for filename in $files; do
   # for every line in each file
   for current_line in $contents; do
     # we hash it, and output it + the hash to a new file with the same name + the `hashes-` prefix
-    echo $current_line | sha256sum | sed "s/\(.*\)-/$current_line \1/g" >> $lists_dir/hashes-$filename
+    echo $current_line | sha256sum | sed "s/\([A-Za-z0-9]*\) *-/$current_line \1/g" >> $lists_dir/hashes-$filename
   done
 done

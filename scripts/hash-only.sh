@@ -19,6 +19,6 @@ for filename in $files; do
   # for every line in each file
   for current_line in $contents; do
     # we hash it, strip the trailing - char and output the hash to a new file in the output dir
-    echo $current_line | sha256sum  | sed 's/\(.*\)-/\1/' >> $hashes_dir/$filename
+    echo $current_line | sha256sum  | sed 's/\([A-Za-z0-9]*\) *-/\1/' >> $hashes_dir/$filename
   done
 done
