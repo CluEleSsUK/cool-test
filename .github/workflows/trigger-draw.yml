@@ -22,11 +22,10 @@ jobs:
         run: ./scripts/hash-tuple.sh ./lists
       - name: Commit to private repo
         run: |
-          git diff-index --name-only HEAD --
           git config --global user.name $BOT_NAME
           git config --global user.email $BOT_EMAIL
           git add .
-          git commit -m "updated hashes" 
+          git commit -m "added hashes for new lists" 
           git push
 
   hash_names_and_commit_to_public:
@@ -46,14 +45,14 @@ jobs:
           path: ./public
           token: ${{ secrets.PAT_TOKEN }}
       - name: Create hashes for public repo
-        run: ./private/scripts/hash-only.sh ./private/lists ./public
+        run: ./private/scripts/hash-only.sh ./private/lists ./public/lists
       - name: Commit to public repo
         working-directory: ./public
         run: |
           git config --global user.name $BOT_NAME
           git config --global user.email $BOT_EMAIL
           git add .
-          git commit -m "added list" 
+          git commit -m "added a new list for drawing" 
       - name: Push public repo
         uses: ad-m/github-push-action@master
         with:
