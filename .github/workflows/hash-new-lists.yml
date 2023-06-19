@@ -1,7 +1,6 @@
-name: trigger-draw
+name: hash-new-lists
 on:
   push:
-  pull_request:
     branches: [ master ]
 permissions:
   contents: write
